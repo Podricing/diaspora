@@ -79,6 +79,14 @@ h3 {
     font: {
       weight: normal; }; }
   padding: 0 !important; 
+
+  blockquote {
+    color: #789922;
+    font-style: normal;
+    margin-left: 0;
+    border-left: none;
+    padding-left: 0;
+  }
 }
 .shield{
   padding: 10px;

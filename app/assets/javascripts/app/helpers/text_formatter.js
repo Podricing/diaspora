@@ -19,6 +19,15 @@ $(function() {
   textFormatter.markdownify = function markdownify(text){
     var converter = Markdown.getSanitizingConverter();
 
+    converter.hooks.chain("preConversion", function(text) {
+        return text
+        // Move lines immediatly following a quote another line down
+            .replace(/(>[^\r\n]*\r?\n)([^>])/g, "$1\r\n$2")
+        // Replace ">..." with ">\\>...<br>" and let markdown do the rest
+            .replace(/^>([^\r\n]*)(\r?\n|$)/gm, ">\\>$1<br>\r\n")
+        ;
+    });
+
     // punycode non-ascii chars in urls
     converter.hooks.chain("preConversion", function(text) {
 

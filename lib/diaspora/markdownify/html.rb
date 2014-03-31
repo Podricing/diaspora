@@ -8,6 +8,13 @@ module Diaspora
         auto_link(link, :link => :urls, :html => { :target => "_blank" })
       end
 
+      def block_quote(text)
+        Rails.logger.info(text.dump)
+
+        ret = text.gsub(/(<p>|\n)(?=[^$])/, "&gt;")
+        "<blockquote>" + ret  + "</blockquote>"
+      end
+
     end
   end
 end
