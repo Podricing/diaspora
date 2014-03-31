@@ -5,3 +5,15 @@ blockquote {
   border-left: none;
   padding-left: 0;
 }
+
+s {
+  text-decoration: none;
+}
+
+s:not(:hover) {
+  background-color: currentColor;
+}
+
+s:not(:hover) * {
+  color: inherit;
+}
