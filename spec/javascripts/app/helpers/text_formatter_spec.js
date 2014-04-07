@@ -160,19 +160,27 @@ describe("app.helpers.textFormatter", function(){
 
       context("percent-encoded input url", function() {
         beforeEach(function() {
-          this.input = "http://www.soilandhealth.org/01aglibrary/010175.tree%20crops.pdf"  // #4507
-          this.correctHref = 'href="'+this.input+'"';
+          this.inputs = ["http://www.soilandhealth.org/01aglibrary/010175.tree%20crops.pdf",  // #4507
+                         "http://example.com/%25"]
+          this.checks = _.zip(this.inputs, _.map(this.inputs, function(input) {
+            return 'href="'+input+'"';
+          }))
+          this.checks.push(["http://example.com/%", 'href="http://example.com/%25"']);
         });
 
         it("doesn't get double-encoded", function(){
-          var parsed = this.formatter.markdownify(this.input);
-          expect(parsed).toContain(this.correctHref);
+          _.each(this.checks, (function(check) {
+            var parsed = this.formatter.markdownify(check[0]);
+            expect(parsed).toContain(check[1]);
+          }), this);
         });
 
         it("gets correctly decoded, even when multiply encoded", function() {
-          var uglyUrl = encodeURI(encodeURI(encodeURI(this.input)));
-          var parsed = this.formatter.markdownify(uglyUrl);
-          expect(parsed).toContain(this.correctHref);
+          _.each(this.checks, (function(check) {
+            var uglyUrl = encodeURI(encodeURI(encodeURI(check[0])));
+            var parsed = this.formatter.markdownify(uglyUrl);
+            expect(parsed).toContain(check[1]);
+          }), this);
         });
       });
 
