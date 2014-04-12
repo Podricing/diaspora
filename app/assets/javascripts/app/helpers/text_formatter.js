@@ -53,10 +53,12 @@ $(function() {
           urlSuffix = '>';
         }
 
-        // url*DE*code as much as possible
-        while( unicodeUrl.indexOf("%") !== -1 && unicodeUrl != decodeURI(unicodeUrl) ) {
-          unicodeUrl = decodeURI(unicodeUrl);
-        }
+        try {
+          // url*DE*code as much as possible
+          while( unicodeUrl.indexOf("%") !== -1 && unicodeUrl != decodeURI(unicodeUrl) ) {
+            unicodeUrl = decodeURI(unicodeUrl);
+          }
+        } catch (e) {} //In case a URL contains % or %25 or decoding simply fails.
 
         // markdown doesn't like '(' or ')' anywhere, except where it wants
         var workingUrl = unicodeUrl.replace(/\(/, "%28").replace(/\)/, "%29");
