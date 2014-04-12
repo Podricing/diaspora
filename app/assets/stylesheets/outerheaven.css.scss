@@ -17,3 +17,7 @@ s:not(:hover) {
 s:not(:hover) * {
   color: inherit;
 }
+
+.stream-video {
+  max-width: 100%;
+}

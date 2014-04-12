@@ -10,7 +10,7 @@ class UnprocessedImage < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(jpg jpeg png gif)
+    %w(jpg jpeg png gif webm)
   end
 
   def filename
@@ -20,9 +20,11 @@ class UnprocessedImage < CarrierWave::Uploader::Base
   process :orient_image
 
   def orient_image
-    manipulate! do |img|
-      img.auto_orient
-      img
+    if File.extname(filename) != ".webm"
+      manipulate! do |img|
+        img.auto_orient
+        img
+      end
     end
   end
 
@@ -34,6 +36,10 @@ class UnprocessedImage < CarrierWave::Uploader::Base
   end
 
   def get_version_dimensions
-    model.width, model.height = `identify -format "%wx%h " #{file.path}`.split(/x/)
+    if File.extname(filename) != ".webm"
+      model.width, model.height = `identify -format "%wx%h " #{file.path}`.split(/x/)
+    else
+      model.width, model.height = 1, 1
+    end
   end
 end

@@ -10,7 +10,7 @@ class ProcessedImage < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(jpg jpeg png gif tiff)
+    %w(jpg jpeg png gif tiff webm)
   end
 
   def filename

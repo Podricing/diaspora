@@ -5,7 +5,7 @@
 
 app.views.PublisherUploader = Backbone.View.extend({
 
-  allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff'],
+  allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff', 'webm'],
   sizeLimit: 4194304,  // bytes
 
   initialize: function(opts) {

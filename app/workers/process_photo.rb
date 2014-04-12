@@ -11,7 +11,9 @@ module Workers
       photo = Photo.find(id)
       unprocessed_image = photo.unprocessed_image
 
-      return false if photo.processed? || unprocessed_image.path.try(:include?, ".gif")
+      return false if photo.processed? ||
+        unprocessed_image.path.try(:include?, ".gif") ||
+        unprocessed_image.path.try(:include?, ".webm")
 
       photo.processed_image.store!(unprocessed_image)
 

@@ -1,16 +1,23 @@
 {{#if largePhoto}}
   <div class="photo_attachments">
-    <a href="#" class="stream-photo-link">
+    {{#ifVideo largePhoto}} 
       {{#with largePhoto}}
-        <img src="{{sizes.large}}" class="stream-photo big_stream_photo" data-small-photo="{{sizes.small}}" data-full-photo="{{sizes.large}}" rel="lightbox">
+        <video src="{{sizes.large}}" class="stream-video" preload="metadata" onclick="if (paused || ended ) { play(); } else { pause(); }" loop />
       {{/with}}
-    </a>
 
-    {{#each smallPhotos}}
+    {{else}}
       <a href="#" class="stream-photo-link">
-        <img src="{{sizes.small}}" class="stream-photo thumb_small" data-small-photo="{{sizes.small}}" data-full-photo="{{sizes.large}}" rel="lightbox">
+        {{#with largePhoto}}
+          <img src="{{sizes.large}}" class="stream-photo big_stream_photo" data-small-photo="{{sizes.small}}" data-full-photo="{{sizes.large}}" rel="lightbox">
+        {{/with}}
       </a>
-    {{/each}}
+
+      {{#each smallPhotos}}
+        <a href="#" class="stream-photo-link">
+          <img src="{{sizes.small}}" class="stream-photo thumb_small" data-small-photo="{{sizes.small}}" data-full-photo="{{sizes.large}}" rel="lightbox">
+        </a>
+      {{/each}}
+    {{/ifVideo}}
   </div>
 {{/if}}
 

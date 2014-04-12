@@ -44,3 +44,16 @@ Handlebars.registerHelper('personImage', function(person, size, imageClass) {
 Handlebars.registerHelper('localTime', function(timestamp) {
   return new Date(timestamp).toLocaleString();
 });
+
+String.prototype.endsWith = function(suffix) {
+  return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
+
+Handlebars.registerHelper('ifVideo', function(photo, options) {
+  if(photo.sizes.large.endsWith(".webm")) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
