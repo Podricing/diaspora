@@ -8,8 +8,6 @@ module Diaspora
       end
 
       def block_quote(text)
-        Rails.logger.info(text.dump)
-
         ret = text.gsub(/(<p>|\n)(?=[^$])/, "&gt;")
         "<blockquote>" + ret  + "</blockquote>"
       end
