@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :mobile_switch
   before_filter :gon_set_current_user
   before_filter :gon_set_preloads
+  before_filter :set_profiling
 
   inflection_method :grammatical_gender => :gender
 
@@ -149,6 +150,12 @@ class ApplicationController < ActionController::Base
   def gon_set_preloads
     return unless gon.preloads.nil?
     gon.preloads = {}
+  end
+
+  def set_profiling
+    if (user_signed_in? && current_user.admin?)
+      Rack::MiniProfiler.authorize_request
+    end
   end
 
   def self.use_bootstrap_for *routes

@@ -110,6 +110,9 @@ gem 'rails-timeago',           '2.4.0'
 # https://github.com/rubyzip/rubyzip#important-note
 gem 'zip-zip'
 
+# Profiling
+gem 'rack-mini-profiler'
+
 ### GROUPS ####
 
 group :assets do
